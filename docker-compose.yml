@@ -1,7 +1,7 @@
 version: '3'
 
 services: 
-  test_db:
+  product_search_db:
     image: cyberplace_product_search_db/1
     build:
       context: ./cyberplace_product_search_db
@@ -14,6 +14,16 @@ services:
       - product_search_db:/data/db
     restart: unless-stopped
 
+  product_search_ms:
+    image: cyberplace_product_search_ms/1
+    build:
+      context: ./cyberplace_product_search_ms
+    ports:
+      - 5000:80
+    environment:
+      ProductSearchSettings__Host: product_search_db
+    depends_on:
+      - product_search_db
 volumes:
   product_search_db:
     driver: local
