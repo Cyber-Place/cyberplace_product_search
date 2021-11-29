@@ -1,0 +1,19 @@
+version: '3'
+
+services: 
+  test_db:
+    image: cyberplace_product_search_db/1
+    build:
+      context: ./cyberplace_product_search_db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: product_search_db
+      MONGO_INITDB_ROOT_PASSWORD: 2021
+    volumes:
+      - product_search_db:/data/db
+    restart: unless-stopped
+
+volumes:
+  product_search_db:
+    driver: local
