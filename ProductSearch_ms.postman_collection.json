@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "a8befa32-18c9-43b2-bbf3-7c27bc409ef2",
+		"name": "ProductSearch_ms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get SearchItems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/searchItem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"searchItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create SearchItems",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Product\":{\r\n        \"Id\": \"5\",\r\n        \"Name\": \"Nvidia 1050ti 8GB\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/SearchItem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit SearchItem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\":\"61a48b13ba78e3b782140755\",\r\n    \"Product\":{\r\n        \"Id\": \"5\",\r\n        \"Name\": \"Intel i9 11gen\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/SearchItem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete SearchItem",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/SearchItem/61a48b13ba78e3b782140755",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchItem",
+						"61a48b13ba78e3b782140755"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SearchHistories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/SearchHistory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchHistory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create searchHistory",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\":\"juanse2607\",\r\n    \"Email\": \"juanse@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/SearchHistory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchHistory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add searchItem in searchHistory",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Product\":{\r\n        \"Id\": \"123456789\",\r\n        \"Name\": \"Laptop Asus FX504  ess\",\r\n        \"Price\": 3200000\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/SearchHistory/additem/61a54849fa0e6a38b860261d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchHistory",
+						"additem",
+						"61a54849fa0e6a38b860261d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Search History",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": \"61a5643c1867995a0f0a1e98\",\r\n    \"Username\":\"JuaNseRod\",\r\n    \"Email\": \"juarodrigussezc@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/SearchHistory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchHistory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete SearchHistory",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/SearchHistory/61a5643c1867995a0f0a1e98",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchHistory",
+						"61a5643c1867995a0f0a1e98"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Item from gistory",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/SearchHistory/removeitem?idHistory=61a54849fa0e6a38b860261d&idItem=61a5667b315fdbd663300ce7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchHistory",
+						"removeitem"
+					],
+					"query": [
+						{
+							"key": "idHistory",
+							"value": "61a54849fa0e6a38b860261d"
+						},
+						{
+							"key": "idItem",
+							"value": "61a5667b315fdbd663300ce7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove all items in history",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/SearchHistory/removeallitems/61a54849fa0e6a38b860261d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"SearchHistory",
+						"removeallitems",
+						"61a54849fa0e6a38b860261d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

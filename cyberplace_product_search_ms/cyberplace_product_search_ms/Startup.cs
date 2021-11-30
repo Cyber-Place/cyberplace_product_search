@@ -36,7 +36,7 @@ namespace cyberplace_product_search_ms
                 (d => d.GetRequiredService<IOptions<ProductSearchSettings>>().Value);
 
             services.AddSingleton<SearchItemService>();
-
+            services.AddSingleton<SearchHistoryService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

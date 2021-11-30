@@ -20,7 +20,7 @@ namespace cyberplace_product_search_ms.Controllers.Models
         public string Email { get; set; }
 
         [BsonElement("items")]
-        public SearchItem[] Items { get; set; }
+        public List<SearchItem> Items { get; set; }
 
     }
 }
