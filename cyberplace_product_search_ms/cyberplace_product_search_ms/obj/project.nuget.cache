@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PD34tvCWHLs3fIuwNlkOZojOuSCfcmAWuVB6EjH8KjvXnU4xDIjaRiEb7XihD0G3c53YJe4FPlcOeBcWHrpxig==",
+  "dgSpecHash": "7cCORbQSYNJeOfv2fj8IiuSbeVTZb8d414TEFmBwNst6ClfERxKAbaJGKp5j72k6CZuifYO9KVHZByBa0meA6g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\juans\\Desktop\\Arquitectura de software\\Proyecto\\cyberplace_product_search_ms\\cyberplace_product_search_ms\\cyberplace_product_search_ms.csproj",
+  "projectFilePath": "C:\\Users\\juans\\Desktop\\Arquitectura de software\\Cyberplace\\cyberplace_product_search\\cyberplace_product_search_ms\\cyberplace_product_search_ms\\cyberplace_product_search_ms.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\juans\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\juans\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

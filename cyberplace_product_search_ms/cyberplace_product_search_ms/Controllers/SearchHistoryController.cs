@@ -25,33 +25,53 @@ namespace cyberplace_product_search_ms.Controllers
         }
 
         [HttpGet]
-        [HttpGet("{id}")]
-        public ActionResult<List<SearchHistory>> Get(string id)
+
+        public ActionResult<List<SearchHistory>> GetAll()
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                List<SearchHistory> searchHistories = _searchHistoryService.GetAll();
-                return searchHistories;
-            }
-            else if (!(ObjectId.TryParse(id, out _)))
-            {
-                return NotFound();
-            }
-            return _searchHistoryService.Get(id);
+            return _searchHistoryService.GetAll();
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<SearchHistory> Get(string id)
+        {
+            if (!(ObjectId.TryParse(id, out _))) return NotFound();
+            var searchHistory = _searchHistoryService.Get(id);
+            if (searchHistory is null) return NotFound();
+            return searchHistory;
+        }
+
+        [HttpGet("user/{username}")]
+        public ActionResult<SearchHistory> GetByUsername(string username)
+        {
+            if (String.IsNullOrEmpty(username)) return BadRequest();
+            username = username.ToLower();
+            var searchHistory = _searchHistoryService.GetByUsername(username);
+            if (searchHistory is null) return NotFound();
+            return searchHistory;
         }
 
         [HttpPost]
         public ActionResult<SearchHistory> Create(SearchHistory searchHistory)
         {
-            if (!(searchHistory.Username is not null) || !(searchHistory.Email is not null)) return BadRequest();
+            if (String.IsNullOrEmpty(searchHistory.Username)) return BadRequest();
+            searchHistory.Username = searchHistory.Username.ToLower();
+            var search_history = _searchHistoryService.GetByUsername(searchHistory.Username);
+            if (search_history is not null)return BadRequest();
             _searchHistoryService.Create(searchHistory);
             return Ok(searchHistory);
         }
 
-        [HttpPut]
-        public ActionResult<SearchHistory> Update(SearchHistory searchHistory)
+        [HttpPut("{id}")]
+        public ActionResult<SearchHistory> Update(string id, SearchHistory updatedHistory)
         {
-            _searchHistoryService.Update(searchHistory.Id, searchHistory);
+            if (!(ObjectId.TryParse(id, out _))) return NotFound();
+            var searchHistory = _searchHistoryService.Get(id);
+            if (searchHistory is null) return NotFound();
+            updatedHistory.Username = updatedHistory.Username.ToLower();
+            var search_history = _searchHistoryService.GetByUsername(updatedHistory.Username);
+            if (search_history is not null) return BadRequest();
+            searchHistory.Username = updatedHistory.Username;
+            _searchHistoryService.Update(id, searchHistory);
             return Ok(searchHistory);
         }
 
@@ -59,25 +79,30 @@ namespace cyberplace_product_search_ms.Controllers
         public ActionResult<SearchHistory> Delete(string id)
         {
             if (!(ObjectId.TryParse(id, out _))) return NotFound();
+            var search_history = _searchHistoryService.Get(id);
+            if (search_history is null) return NotFound();
             _searchHistoryService.Delete(id);
-            return Ok();
+            return NoContent();
         }
 
-        [HttpPost("additem/{id}")]
-        public ActionResult<SearchHistory> AddItem(string id, SearchItem searchItem)
+        [HttpPost("additem/{idHistory}")]
+        public ActionResult<SearchHistory> AddItem(string idHistory, SearchItem searchItem)
         {
-            if (!(ObjectId.TryParse(id, out _))) return NotFound();
-            if (!(searchItem.Product is not null)) return BadRequest();
-            if (!(searchItem.Product.Id is not null)) return BadRequest();
+            if (!(ObjectId.TryParse(idHistory, out _))) return NotFound();
+            if (searchItem.ProductId < 0) return BadRequest();
+            var search_history = _searchHistoryService.Get(idHistory);
+            if (search_history is null) return NotFound();
             _searchItemService.Create(searchItem);
-            _searchHistoryService.AddItem(id, searchItem);
-            return Ok(_searchHistoryService.Get(id));
+            _searchHistoryService.AddItem(idHistory, searchItem);
+            return Ok(_searchHistoryService.Get(idHistory));
         }
 
-        [HttpDelete("removeitem")]
+        [HttpDelete("removeitem/{idHistory}")]
         public ActionResult<SearchHistory> RemoveItem(string idHistory, string idItem)
         {
             if (!(ObjectId.TryParse(idHistory, out _)) || !(ObjectId.TryParse(idItem, out _))) return NotFound();
+            var search_history = _searchHistoryService.Get(idHistory);
+            if (search_history is null) return NotFound();
             _searchHistoryService.RemoveItem(idHistory, idItem);
             return Ok(_searchHistoryService.Get(idHistory));
         }
@@ -86,6 +111,8 @@ namespace cyberplace_product_search_ms.Controllers
         public ActionResult<SearchHistory> RemoveAllItems(string idHistory)
         {
             if (!(ObjectId.TryParse(idHistory, out _))) return NotFound();
+            var search_history = _searchHistoryService.Get(idHistory);
+            if (search_history is null) return NotFound();
             return Ok(_searchHistoryService.RemoveAllItems(idHistory));
         }
     }

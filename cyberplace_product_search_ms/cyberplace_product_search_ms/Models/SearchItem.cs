@@ -16,8 +16,8 @@ namespace cyberplace_product_search_ms.Models
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime SearchTime { get; set; }
 
-        [BsonElement("product")]
-        public Product Product { get; set; }
+        [BsonElement("product_id")]
+        public int ProductId { get; set; }
 
     }
 }

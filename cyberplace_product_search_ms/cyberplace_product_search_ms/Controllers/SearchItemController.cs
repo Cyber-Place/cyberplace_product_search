@@ -22,42 +22,46 @@ namespace cyberplace_product_search_ms.Controllers
         }
 
         [HttpGet]
-        [HttpGet("{id}")]
-        public ActionResult<List<SearchItem>> Get(string id)
+        public ActionResult<List<SearchItem>> Get()
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                List<SearchItem> searchItems = _searchItemService.GetAll();
-                return searchItems;
-            }
-            else if (!(ObjectId.TryParse(id, out _)))
-            {
-                return NotFound();
-            }
+            return _searchItemService.GetAll();
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<SearchItem> Get(string id)
+        {
+            if (!(ObjectId.TryParse(id, out _)))return NotFound();
             return _searchItemService.Get(id);
         }
 
         [HttpPost]
         public ActionResult<SearchItem> Create(SearchItem searchItem)
-        {
-            if(!(searchItem.Product is not null)) return BadRequest();
-            if(!(searchItem.Product.Id is not null)) return BadRequest();
+        {   
+            if(searchItem.ProductId < 0) return BadRequest();
             _searchItemService.Create(searchItem);
             return Ok(searchItem);
         }
 
-        [HttpPut]
-        public ActionResult<SearchItem> Update(SearchItem searchItem)
+        [HttpPut("{id}")]
+        public ActionResult<SearchItem> Update(string id, SearchItem updatedItem)
         {
-            _searchItemService.Update(searchItem.Id, searchItem);
-            return Ok(searchItem);
+            if (!(ObjectId.TryParse(id, out _))) return NotFound();
+            var searchItem = _searchItemService.Get(id);
+            if (searchItem is null) return NotFound();
+            updatedItem.Id = searchItem.Id;
+            updatedItem.SearchTime = searchItem.SearchTime;
+            _searchItemService.Update(id, updatedItem);
+            return Ok(updatedItem);
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
+            if (!(ObjectId.TryParse(id, out _))) return NotFound();
+            var search_Item = _searchItemService.Get(id);
+            if (search_Item is null) return NotFound();
             _searchItemService.Delete(id);
-            return Ok();
+            return NoContent();
         }
     }
 }

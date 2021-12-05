@@ -2,7 +2,7 @@ version: '3'
 
 services: 
   product_search_db:
-    image: cyberplace_product_search_db/1
+    image: cyberplace_product_search_db
     build:
       context: ./cyberplace_product_search_db
     ports:
@@ -15,11 +15,11 @@ services:
     restart: unless-stopped
 
   product_search_ms:
-    image: cyberplace_product_search_ms/2
+    image: cyberplace_product_search_ms/4
     build:
       context: ./cyberplace_product_search_ms
     ports:
-      - 5000:80
+      - 4500:80
     environment:
       ProductSearchSettings__Host: product_search_db
     depends_on:

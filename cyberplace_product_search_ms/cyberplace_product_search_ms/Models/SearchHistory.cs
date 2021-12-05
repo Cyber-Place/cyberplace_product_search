@@ -16,9 +16,6 @@ namespace cyberplace_product_search_ms.Controllers.Models
         [BsonElement("username")]
         public string Username { get; set; }
 
-        [BsonElement("email")]
-        public string Email { get; set; }
-
         [BsonElement("items")]
         public List<SearchItem> Items { get; set; }
 

@@ -26,9 +26,9 @@ namespace cyberplace_product_search_ms.Services
             return _searchitem.Find(data => true).ToList();
         }
 
-        public List<SearchItem> Get(string id)
+        public SearchItem Get(string id)
         {
-            return _searchitem.Find(data => data.Id == id).ToList();
+            return _searchitem.Find(data => data.Id == id).ToList().FirstOrDefault();
         }
 
         public SearchItem Create(SearchItem searchItem)

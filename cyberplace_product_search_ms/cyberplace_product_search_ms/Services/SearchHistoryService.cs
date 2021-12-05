@@ -25,20 +25,23 @@ namespace cyberplace_product_search_ms.Services
         {
             return _searchHistory.Find(data => true).ToList();
         }
-        public List<SearchHistory> Get(string id)
+        public SearchHistory Get(string id)
         {
-            return _searchHistory.Find(data => data.Id == id).ToList();
+            return _searchHistory.Find(data => data.Id == id).ToList().FirstOrDefault();
+        }
+        public SearchHistory GetByUsername(string username)
+        {
+            return _searchHistory.Find(data => data.Username == username).ToList().FirstOrDefault();
         }
         public SearchHistory Create(SearchHistory SearchHistory)
         {
+            SearchHistory.Id = string.Empty;
             SearchHistory.Items = new List<SearchItem>();
             _searchHistory.InsertOne(SearchHistory);
             return SearchHistory;
         }
         public SearchHistory Update(string id, SearchHistory SearchHistory)
         {
-            SearchHistory oldHistory = _searchHistory.Find(data => data.Id == id).ToList().First();
-            SearchHistory.Items = oldHistory.Items;
             _searchHistory.ReplaceOne(data => data.Id == id, SearchHistory);
             return SearchHistory;
         }
@@ -61,7 +64,7 @@ namespace cyberplace_product_search_ms.Services
 
         public SearchHistory RemoveAllItems(string idHistory)
         {
-            SearchHistory searchHistory = _searchHistory.Find(data => data.Id == idHistory).ToList().First();
+            SearchHistory searchHistory = _searchHistory.Find(data => data.Id == idHistory).ToList().FirstOrDefault();
             searchHistory.Items = new List<SearchItem>();
             _searchHistory.ReplaceOne(data => data.Id == idHistory, searchHistory);
             return searchHistory;
