@@ -29,16 +29,25 @@ namespace cyberplace_product_search_ms
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Dependency injection productsearch settings 
             services.Configure<ProductSearchSettings>
                 (Configuration.GetSection(nameof(ProductSearchSettings)));
-
             services.AddSingleton<IProductSearchSettings>
                 (d => d.GetRequiredService<IOptions<ProductSearchSettings>>().Value);
+            //Dependency injection productsearch settings
+            services.Configure<RabbitMQSettings>
+                (Configuration.GetSection(nameof(RabbitMQSettings)));
+            services.AddSingleton<IRabbitMQSettings>
+                (d => d.GetRequiredService<IOptions<RabbitMQSettings>>().Value);
+
+            services.AddHostedService<RabbitReceiverService>();
+
 
             services.AddSingleton<SearchItemService>();
             services.AddSingleton<SearchHistoryService>();
-
             services.AddControllers();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "cyberplace_product_search_ms", Version = "v1" });

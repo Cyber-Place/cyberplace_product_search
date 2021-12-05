@@ -15,13 +15,15 @@ services:
     restart: unless-stopped
 
   product_search_ms:
-    image: cyberplace_product_search_ms/4
+    image: cyberplace_product_search_ms/5
     build:
       context: ./cyberplace_product_search_ms
     ports:
       - 4500:80
     environment:
       ProductSearchSettings__Host: product_search_db
+      RabbitMQSettings__Host: host.docker.internal
+      RabbitMQSettings__Port: 5672
     depends_on:
       - product_search_db
 volumes:
