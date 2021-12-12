@@ -2,30 +2,31 @@ version: '3'
 
 services: 
   product_search_db:
-    image: cyberplace_product_search_db
-    build:
-      context: ./cyberplace_product_search_db
+    image: mongo:latest
+    # build:
+    #   context: ./cyberplace_product_search_db
     ports:
-      - 27017:27017
+      - 27018:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: product_search_db
       MONGO_INITDB_ROOT_PASSWORD: 2021
-    volumes:
-      - product_search_db:/data/db
-    restart: unless-stopped
+  #   # volumes:
+  #   #   - product_search_db:/data/db
+  #   restart: unless-stopped
 
   product_search_ms:
     image: cyberplace_product_search_ms
     build:
       context: ./cyberplace_product_search_ms
-    ports:
-      - 4500:80
+    # ports:
+    #   - 4500:80
     environment:
-      ProductSearchSettings__Host: product_search_db
-      RabbitMQSettings__Host: host.docker.internal
+      ProductSearchSettings__Host: localhost
+      RabbitMQSettings__Host: localhost
       RabbitMQSettings__Port: 5672
-    depends_on:
-      - product_search_db
-volumes:
-  product_search_db:
-    driver: local
+    network_mode: host
+    # depends_on:
+    #   - product_search_db
+# volumes:
+#   product_search_db:
+#     driver: local
